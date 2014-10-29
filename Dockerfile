@@ -16,7 +16,7 @@ RUN gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add -
 RUN apt-get update
 RUN apt-get -y install tor
 
-# Configure the main port
+# Expose the main port
 EXPOSE 9001
 
 # Add a user
@@ -25,7 +25,8 @@ RUN useradd tor
 # This is where the tor data is stored
 VOLUME /home/tor/.tor
 
+# Add launcher
 ADD start.sh /start.sh
 
-# Start Tor as user 'tor'
+# Start Tor
 CMD /start.sh
