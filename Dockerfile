@@ -16,35 +16,16 @@ RUN gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add -
 RUN apt-get update
 RUN apt-get -y install tor
 
-# Configure Tor
-
-## Configure the main port
-RUN echo 'ORPort 9001' >> /etc/tor/torrc
+# Configure the main port
 EXPOSE 9001
 
-## Configure the directory service
-RUN echo 'DirPort 9030' >> /etc/tor/torrc
-EXPOSE 9030
+# Add a user
+RUN useradd tor
 
-## Disable Socks connections
-RUN echo 'SocksPort 0' >> /etc/tor/torrc
+# This is where the tor data is stored
+VOLUME /home/tor/.tor
 
-## Reject all exits. Only relay.
-RUN echo 'Exitpolicy reject *:*' >> /etc/tor/torrc
+ADD start.sh /start.sh
 
-## Not so useful information
-RUN echo 'Nickname DockerizedTorRelay' >> /etc/tor/torrc
-RUN echo 'ContactInfo human@DockerTorRelay.local' >> /etc/tor/torrc
-
-## Start the count on the first after midnight
-RUN echo 'AccountingStart month 1 00:01' >> /etc/tor/torrc
-
-## Share 750 Gigabytes per month (each way)
-RUN echo 'AccountingMax 750 GBytes' >> /etc/tor/torrc
-
-## Add a user
-RUN adduser tor
-
-# Fire up Tor
-USER tor
-CMD /usr/sbin/tor -f /etc/tor/torrc
+# Start Tor as user 'tor'
+CMD /start.sh
