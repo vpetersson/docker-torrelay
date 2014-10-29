@@ -28,7 +28,7 @@ It recommended that you provide a Nickname. You can do this using the following 
 
 It is also recommended that you provide your contact information. This is mostly used for contact information in case there is something wrong with your node.
 
-     -e 'CONTACTINFO=John Smith <jsmith@example.com>' \
+    -e 'CONTACTINFO=John Smith <jsmith@example.com>' \
 
 #### Use persistant storage
 
