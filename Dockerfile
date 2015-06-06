@@ -5,16 +5,8 @@
 FROM ubuntu:14.04
 MAINTAINER Viktor Petersson "vpetersson@wireload.net"
 
-# Make sure we're up to date
-RUN apt-get update
-RUN apt-get -y upgrade
-
 # Install Tor
-RUN echo 'deb http://deb.torproject.org/torproject.org trusty main' >> /etc/apt/sources.list
-RUN gpg --keyserver keys.gnupg.net --recv 886DDD89
-RUN gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add -
-RUN apt-get update
-RUN apt-get -y install tor
+RUN apt-get update && echo 'deb http://deb.torproject.org/torproject.org trusty main' >> /etc/apt/sources.list && gpg --keyserver keys.gnupg.net --recv 886DDD89 && gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add - && apt-get update && apt-get -y install tor && apt-get clean
 
 # Expose the main port
 EXPOSE 9001
