@@ -2,7 +2,7 @@
 
 A simple Docker container for running a Tor relay server. The container is configured to relay up to 750GB of data (each way) per month.
 
-The container is also configured to listen on port 9001 for the relay traffic, and 9030 for the directory service. Make sure to open these in your firewall.
+The container is also configured to listen on port 9001 for the relay traffic. Make sure to open the in your firewall.
 
 ## Usage
 
@@ -11,7 +11,7 @@ The container is also configured to listen on port 9001 for the relay traffic, a
 Running the relay is super simple.
 
     $ docker run -d \
-        -p :9001:9001 \
+        -p 9001:9001 \
         --restart=always \
         --name=torrelay \
         -t vpetersson/torrelay
@@ -45,3 +45,4 @@ The default value in this container is set to 750 GBytes per month (both ways). 
 
     -e 'ACCOUNTINGMAX=750 GBytes' \
 
+Please note that if you do use the bandwidth quota/accounting feature, the directory service feature (port 9030) will get disabled.
