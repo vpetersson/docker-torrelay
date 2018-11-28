@@ -12,7 +12,7 @@ RUN echo "deb http://deb.torproject.org/torproject.org xenial main\ndeb-src http
 RUN gpg --keyserver keys.gnupg.net --recv A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 && gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 > tor.gpg && apt-key add tor.gpg
 
 # Finally install Tor
-RUN apt update && apt install sudo tor -y
+RUN apt update && apt install sudo tor -y && apt clean
 
 # Expose the main port
 EXPOSE 9001
